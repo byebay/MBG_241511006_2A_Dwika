@@ -5,8 +5,12 @@
 
     <form action="/user/update_user/<?= $user['id'] ?>" method="post">
         <div class="mb-3">
-            <label class="form-label">Username</label>
-            <input type="text" name="username" value="<?= $user['username'] ?>" class="form-control" required>
+            <label class="form-label">Nama</label>
+            <input type="text" name="name" value="<?= $user['name'] ?>" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="text" name="email" value="<?= $user['email'] ?>" class="form-control" required>
         </div>
 
         <div class="mb-3">
@@ -17,8 +21,8 @@
         <div class="mb-3">
             <label class="form-label">Role</label>
             <select name="role" class="form-select" required>
-                <option value="user" <?= $user['role']=='user'?'selected':'' ?>>Mahasiswa</option>
-                <option value="admin" <?= $user['role']=='admin'?'selected':'' ?>>Admin</option>
+                <option value="dapur" <?= $user['role']=='dapur'?'selected':'' ?>>Dapur (Client)</option>
+                <option value="gudang" <?= $user['role']=='gudang'?'selected':'' ?>>Gudang (Admin)</option>
             </select>
         </div>
 

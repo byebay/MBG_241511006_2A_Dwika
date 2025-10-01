@@ -12,4 +12,8 @@ class Dashboard extends BaseController
 
         return view('/layout' );
     }
+
+    public function home(){
+        return view('/home');
+    }
 }

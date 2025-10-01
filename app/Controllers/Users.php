@@ -8,7 +8,7 @@ class Users extends Controller
 {
     public function users()
     {
-        if (session()->get('role') !== 'admin') {
+        if (session()->get('role') !== 'gudang') {
             return redirect()->to('/dashboard')->with('error', 'Anda tidak punya akses.');
         }
 
@@ -20,7 +20,7 @@ class Users extends Controller
 
     public function createUser()
     {
-        if (session()->get('role') !== 'admin') {
+        if (session()->get('role') !== 'gudang') {
             return redirect()->to('/dashboard')->with('error', 'Anda tidak punya akses.');
         }
 
@@ -29,7 +29,7 @@ class Users extends Controller
 
     public function storeUser()
     {
-        if (session()->get('role') !== 'admin') {
+        if (session()->get('role') !== 'gudang') {
             return redirect()->to('/dashboard')->with('error', 'Anda tidak punya akses.');
         }
 
@@ -37,6 +37,7 @@ class Users extends Controller
 
         $data = [
             'username' => $this->request->getPost('username'),
+            'email' => $this->request->getPost('email'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             'role'     => $this->request->getPost('role')
         ];
@@ -48,7 +49,7 @@ class Users extends Controller
 
     public function editUser($id)
     {
-        if (session()->get('role') !== 'admin') {
+        if (session()->get('role') !== 'gudang') {
             return redirect()->to('/dashboard')->with('error', 'Anda tidak punya akses.');
         }
 
@@ -64,15 +65,16 @@ class Users extends Controller
 
     public function updateUser($id)
     {
-        if (session()->get('role') !== 'admin') {
+        if (session()->get('role') !== 'gudang') {
             return redirect()->to('/dashboard')->with('error', 'Anda tidak punya akses.');
         }
 
         $userModel = new UserModel();
 
         $data = [
-            'username' => $this->request->getPost('username'),
-            'role'     => $this->request->getPost('role'),
+            'name' => $this->request->getPost('name'),
+            'email' => $this->request->getPost('email'),
+            'role' => $this->request->getPost('role'),
         ];
 
         // Jika password diisi, update password juga
@@ -88,7 +90,7 @@ class Users extends Controller
 
     public function deleteUser($id)
     {
-        if (session()->get('role') !== 'admin') {
+        if (session()->get('role') !== 'gudang') {
             return redirect()->to('/dashboard')->with('error', 'Anda tidak punya akses.');
         }
 

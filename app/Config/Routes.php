@@ -13,6 +13,7 @@ $routes->post('/login', 'Auth::loginProcess');
 $routes->get('/logout', 'Auth::logout');
 
 $routes->get('/dashboard', 'Dashboard::index');
+$routes->get('/home', 'Dashboard::home');
 
 $routes->group('user', function($routes) {
     $routes->get('users', 'Users::users');

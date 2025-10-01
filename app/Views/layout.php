@@ -8,12 +8,14 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
   <div class="container">
-    <a class="navbar-brand" href="/dashboard">CI4 Template</a>
+    <a class="navbar-brand" href="/dashboard">Program MBG</a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="/user/users">User</a></li>
-        <li class="nav-item"><a class="nav-link" href="/products">Bahan Baku</a></li>
+        <?php if (session()->get('role') === 'gudang'): ?>
+          <li class="nav-item"><a class="nav-link" href="/user/users">User</a></li>
+          <li class="nav-item"><a class="nav-link" href="/products">Bahan Baku</a></li>
+        <?php endif; ?>
         <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
       </ul>
     </div>

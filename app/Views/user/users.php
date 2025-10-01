@@ -11,7 +11,8 @@
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
-                <th>Username</th>
+                <th>Nama</th>
+                <th>Email</th>
                 <th>Role</th>
                 <th>Aksi</th>
             </tr>
@@ -20,7 +21,8 @@
             <?php if(!empty($users)): ?>
                 <?php foreach($users as $user): ?>
                     <tr>
-                        <td><?= $user['username'] ?></td>
+                        <td><?= $user['name'] ?></td>
+                        <td><?= $user['email'] ?></td>
                         <td><?= ucfirst($user['role']) ?></td>
                         <td>
                             <a href="/user/edit_user/<?= $user['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
