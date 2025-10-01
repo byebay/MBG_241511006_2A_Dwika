@@ -50,9 +50,8 @@ class Products extends BaseController {
 
     public function update($id) {
         $this->productModel->update($id, [
-            'name' => $this->request->getPost('name'),
-            'price' => $this->request->getPost('price'),
-            'description' => $this->request->getPost('description'),
+            'jumlah' => $this->request->getPost('jumlah'),
+            'satuan' => $this->request->getPost('satuan'),
         ]);
         return redirect()->to('/products');
     }

@@ -34,7 +34,7 @@
             <td><?= $p['tanggal_kadaluarsa'] ?></td>
             <td><?= $p['status'] ?></td>
             <td>
-                <a href="/products/edit/<?= $p['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                <a href="/products/edit/<?= $p['id'] ?>" class="btn btn-sm btn-warning">Update Stok</a>
                 <a href="/products/delete/<?= $p['id'] ?>" class="btn btn-sm btn-danger"
                    onclick="return confirm('Yakin hapus produk ini?')">Hapus</a>
             </td>
