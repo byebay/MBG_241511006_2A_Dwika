@@ -8,7 +8,6 @@
     <?php endif; ?>
 
     <a href="/user/create_user" class="btn btn-primary mb-3">Tambah User</a>
-
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>

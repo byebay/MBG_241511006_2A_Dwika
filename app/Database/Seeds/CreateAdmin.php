@@ -10,9 +10,10 @@ class CreateAdmin extends Seeder
     {
         $model = new \App\Models\UserModel();
         $model->save([
-            'username'   => "Admin",
+            'name'   => "Admin",
+            'email'  => "admin@mbg.id",
             'password'   => password_hash("Admin123", PASSWORD_DEFAULT),
-            'role'       => "admin"
+            'role'       => "gudang"
         ]);
     }
 }

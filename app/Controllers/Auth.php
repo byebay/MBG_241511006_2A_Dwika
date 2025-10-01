@@ -14,20 +14,18 @@ class Auth extends Controller
         $userModel = new UserModel();
 
         if ($this->request->getMethod() === 'post') {
-            $username = $this->request->getPost('username');
+            $username = $this->request->getPost('name');
             $password = $this->request->getPost('password');
 
-            $user = $userModel->where('username', $username)->first();
+            $user = $userModel->where('name', $username)->first();
 
             if ($user) {
-                // cek password
                 if (password_verify($password, $user['password'])) {
-                    // ===> DI SINI SESSION DITARUH
                     session()->set([
                         'isLoggedIn' => true,
                         'user_id'    => $user['id'],
-                        'username'   => $user['username'],
-                        'role'       => $user['role'] // simpan role ke session
+                        'name'       => $user['name'],
+                        'role'       => $user['role']
                     ]);
 
                     return redirect()->to('/products');
@@ -46,23 +44,22 @@ class Auth extends Controller
         $session = session();
         $userModel = new UserModel();
 
-        $username = $this->request->getPost('username');
+        $username = $this->request->getPost('name');
         $password = $this->request->getPost('password');
 
-        // cari user berdasarkan username
-        $user = $userModel->where('username', $username)->first();
+        $user = $userModel->where('name', $username)->first();
 
         if ($user && password_verify($password, $user['password'])) {
             $session->set([
                 'user_id'   => $user['id'],
-                'username'  => $user['username'],
+                'name'      => $user['name'],
                 'role'      => $user['role'],
-                'logged_in' => true
+                'isLoggedIn' => true
             ]);
             return redirect()->to('/dashboard');
         }
 
-        return redirect()->back()->withInput()->with('error', 'Login gagal! Username atau password salah.');
+        return redirect()->back()->withInput()->with('error', 'Login gagal! Name atau password salah.');
     }
 
     public function logout()

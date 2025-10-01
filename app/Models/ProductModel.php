@@ -4,7 +4,7 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 class ProductModel extends Model {
-    protected $table = 'products';
+    protected $table = 'bahan_baku';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['name', 'price', 'description'];
+    protected $allowedFields = ['nama', 'kategori', 'jumlah', 'satuan', 'tanggal_masuk', 'tanggal_kadaluarsa', 'status', 'created_at'];
 }
