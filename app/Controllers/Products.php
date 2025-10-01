@@ -9,15 +9,12 @@ class Products extends BaseController {
     public function __construct() {
         $this->productModel = new ProductModel();
 
-        // Cek login
         if (! session()->get('isLoggedIn')) {
             header('Location: ' . base_url('login'));
             exit;
         }
 
-        // Cek role
-        if (session()->get('role') !== 'admin') {
-            // Kalau bukan admin, redirect ke halaman lain
+        if (session()->get('role') !== 'gudang') {
             header('Location: ' . base_url('products'));
             exit;
         }
@@ -35,9 +32,13 @@ class Products extends BaseController {
 
     public function store() {
         $this->productModel->save([
-            'name' => $this->request->getPost('name'),
-            'price' => $this->request->getPost('price'),
-            'description' => $this->request->getPost('description'),
+            'nama' => $this->request->getPost('nama'),
+            'kategori' => $this->request->getPost('kategori'),
+            'jumlah' => $this->request->getPost('jumlah'),
+            'satuan' => $this->request->getPost('satuan'),
+            'tanggal_masuk' => $this->request->getPost('tanggal_masuk'),
+            'tanggal_kadaluarsa' => $this->request->getPost('tanggal_kadaluarsa'),
+            'status' => 'Tersedia'
         ]);
         return redirect()->to('/products');
     }
