@@ -17,10 +17,16 @@
           <li class="nav-item"><a class="nav-link" href="/products">Bahan Baku</a></li>
         <?php endif; ?>
 
-        <?php if (session()->get('role') === 'dapur' || session()->get('role') === 'admin'): ?>
+        <?php if (session()->get('role') === 'dapur'): ?>
           <li class="nav-item"><a class="nav-link" href="/permintaan">Permintaan</a></li>
         <?php endif; ?>
+
+        <?php if (session()->get('role') === 'gudang'): ?>
+          <li class="nav-item"><a class="nav-link" href="/gudang/permintaan">Permintaan</a></li>
+        <?php endif; ?>
+
         <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+      
       </ul>
     </div>
   </div>

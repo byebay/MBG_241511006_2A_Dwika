@@ -26,7 +26,7 @@
                     <th>Menu</th>
                     <th>Jumlah Porsi</th>
                     <th>Status</th>
-                    <th>Detail Bahan Baku</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,6 +47,16 @@
                         </td>
                         <td>
                             <a href="/permintaan/detail/<?= $p['id'] ?>" class="btn btn-info btn-sm">Detail</a>
+
+                            <?php if ($p['status'] == 'menunggu'): ?>
+                                <form action="/permintaan/batalkan/<?= $p['id'] ?>" method="post" style="display:inline;">
+                                    <?= csrf_field() ?>
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Yakin ingin membatalkan dan menghapus permintaan ini?')">
+                                        Batalkan
+                                    </button>
+                                </form>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -54,4 +64,5 @@
         </table>
     <?php endif; ?>
 </div>
+
 <?= $this->endSection() ?>

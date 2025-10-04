@@ -16,11 +16,9 @@ class Permintaan extends Controller
 
         $permintaanModel = new PermintaanModel();
         $detailModel = new PermintaanDetailModel();
-        $productModel = new ProductModel();
 
         $permintaanList = $permintaanModel
-            ->where('pemohon_id', session()->get('id'))
-            ->orderBy('created_at', 'DESC')
+            ->where('pemohon_id', session()->get('user_id'))
             ->findAll();
 
         foreach ($permintaanList as &$p) {
@@ -30,7 +28,7 @@ class Permintaan extends Controller
                 ->where('permintaan_detail.permintaan_id', $p['id'])
                 ->findAll();
 
-            $p['detail'] = $detail; 
+            $p['detail'] = $detail;
         }
 
         $data['permintaan'] = $permintaanList;
@@ -47,14 +45,12 @@ class Permintaan extends Controller
         $permintaanModel = new PermintaanModel();
         $detailModel = new PermintaanDetailModel();
 
-        // Ambil permintaan utama
         $permintaan = $permintaanModel->find($id);
 
-        if (!$permintaan || $permintaan['pemohon_id'] != session()->get('id')) {
+        if (!$permintaan || $permintaan['pemohon_id'] != session()->get('user_id')) {
             return redirect()->to('/permintaan')->with('error', 'Data tidak ditemukan.');
         }
 
-        // Ambil detail bahan baku
         $detail = $detailModel
             ->select('permintaan_detail.*, bahan_baku.nama AS nama_bahan, bahan_baku.satuan')
             ->join('bahan_baku', 'bahan_baku.id = permintaan_detail.bahan_id')
@@ -69,7 +65,6 @@ class Permintaan extends Controller
         return view('permintaan/detail', $data);
     }
 
-
     public function create()
     {
         if (session()->get('role') !== 'dapur') {
@@ -77,6 +72,7 @@ class Permintaan extends Controller
         }
 
         $productModel = new ProductModel();
+
         $data['bahan'] = $productModel
             ->where('jumlah >', 0)
             ->where('status !=', 'kadaluarsa')
@@ -95,7 +91,7 @@ class Permintaan extends Controller
         $detailModel = new PermintaanDetailModel();
 
         $permintaanId = $permintaanModel->insert([
-            'pemohon_id'   => session()->get('id'),
+            'pemohon_id'   => session()->get('user_id'),
             'tgl_masak'    => $this->request->getPost('tgl_masak'),
             'menu_makan'   => $this->request->getPost('menu_makan'),
             'jumlah_porsi' => $this->request->getPost('jumlah_porsi'),
@@ -104,7 +100,7 @@ class Permintaan extends Controller
         ]);
 
         $bahan_ids = $this->request->getPost('bahan_id');
-        $jumlah   = $this->request->getPost('jumlah_diminta');
+        $jumlah    = $this->request->getPost('jumlah_diminta');
 
         if ($bahan_ids && $jumlah) {
             foreach ($bahan_ids as $i => $bahan_id) {
@@ -117,5 +113,22 @@ class Permintaan extends Controller
         }
 
         return redirect()->to('/permintaan')->with('success', 'Permintaan bahan berhasil dikirim.');
+    }
+
+    public function batalkan($id)
+    {
+        $permintaanModel = new \App\Models\PermintaanModel();
+        $detailModel = new \App\Models\PermintaanDetailModel();
+
+        $permintaan = $permintaanModel->find($id);
+        if (!$permintaan) {
+            return redirect()->back()->with('error', 'Permintaan tidak ditemukan.');
+        }
+
+        $detailModel->where('permintaan_id', $id)->delete();
+
+        $permintaanModel->delete($id);
+
+        return redirect()->to('/permintaan')->with('success', 'Permintaan berhasil dibatalkan dan dihapus.');
     }
 }

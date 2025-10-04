@@ -39,4 +39,12 @@ $routes->group('permintaan', function($routes) {
     $routes->get('create', 'Permintaan::create');
     $routes->post('store', 'Permintaan::store');
     $routes->get('detail/(:num)', 'Permintaan::detail/$1');
+    $routes->post('batalkan/(:num)', 'Permintaan::batalkan/$1');
+});
+
+$routes->group('gudang', function($routes) {
+    $routes->get('permintaan', 'GudangController::index');
+    $routes->get('permintaan/detail/(:num)', 'GudangController::detailPermintaan/$1');
+    $routes->post('permintaan/setujui/(:num)', 'GudangController::setujui/$1');
+    $routes->post('permintaan/tolak/(:num)', 'GudangController::tolak/$1');
 });
