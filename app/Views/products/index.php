@@ -35,8 +35,7 @@
             <td><?= $p['status'] ?></td>
             <td>
                 <a href="/products/edit/<?= $p['id'] ?>" class="btn btn-sm btn-warning">Update Stok</a>
-                <a href="/products/delete/<?= $p['id'] ?>" class="btn btn-sm btn-danger"
-                   onclick="return confirm('Yakin hapus produk ini?')">Hapus</a>
+                <a href="/products/confirm-delete/<?= $p['id'] ?>" class="btn btn-sm btn-danger">Hapus</a>
             </td>
         </tr>
         <?php endforeach ?>

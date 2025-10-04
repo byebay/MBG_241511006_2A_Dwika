@@ -14,17 +14,17 @@ class Auth extends Controller
         $userModel = new UserModel();
 
         if ($this->request->getMethod() === 'post') {
-            $username = $this->request->getPost('name');
+            $username = $this->request->getPost('email');
             $password = $this->request->getPost('password');
 
-            $user = $userModel->where('name', $username)->first();
+            $user = $userModel->where('email', $username)->first();
 
             if ($user) {
                 if (password_verify($password, $user['password'])) {
                     session()->set([
                         'isLoggedIn' => true,
                         'user_id'    => $user['id'],
-                        'name'       => $user['name'],
+                        'email'       => $user['email'],
                         'role'       => $user['role']
                     ]);
 
@@ -44,22 +44,22 @@ class Auth extends Controller
         $session = session();
         $userModel = new UserModel();
 
-        $username = $this->request->getPost('name');
+        $username = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        $user = $userModel->where('name', $username)->first();
+        $user = $userModel->where('email', $username)->first();
 
         if ($user && password_verify($password, $user['password'])) {
             $session->set([
                 'user_id'   => $user['id'],
-                'name'      => $user['name'],
+                'email'      => $user['email'],
                 'role'      => $user['role'],
                 'isLoggedIn' => true
             ]);
             return redirect()->to('/dashboard');
         }
 
-        return redirect()->back()->withInput()->with('error', 'Login gagal! Name atau password salah.');
+        return redirect()->back()->withInput()->with('error', 'Login gagal! Email atau password salah.');
     }
 
     public function logout()

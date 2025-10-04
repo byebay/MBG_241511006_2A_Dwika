@@ -49,15 +49,42 @@ class Products extends BaseController {
     }
 
     public function update($id) {
+        $jumlah = (int) $this->request->getPost('jumlah');
+
+        if ($jumlah < 0) {
+            return redirect()->back()->with('error', 'Jumlah stok tidak boleh kurang dari 0');
+        }
+
         $this->productModel->update($id, [
-            'jumlah' => $this->request->getPost('jumlah'),
+            'jumlah' => $jumlah,
             'satuan' => $this->request->getPost('satuan'),
         ]);
-        return redirect()->to('/products');
+
+        return redirect()->to('/products')->with('success', 'Produk berhasil diperbarui');
     }
 
     public function delete($id) {
+        $product = $this->productModel->find($id);
+
+        if (! $product) {
+            return redirect()->to('/products')->with('error', 'Produk tidak ditemukan');
+        }
+
+        if ($product['status'] !== 'Kadaluarsa') {
+            return redirect()->to('/products')->with('error', 'Produk dengan status "' . $product['status'] . '" tidak dapat dihapus');
+        }
+
         $this->productModel->delete($id);
-        return redirect()->to('/products');
+        return redirect()->to('/products')->with('success', 'Produk berhasil dihapus');
+    }
+    
+    public function confirmDelete($id) {
+        $product = $this->productModel->find($id);
+
+        if (! $product) {
+            return redirect()->to('/products')->with('error', 'Produk tidak ditemukan');
+        }
+
+        return view('products/confirm_delete', ['product' => $product]);
     }
 }

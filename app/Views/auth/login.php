@@ -22,8 +22,8 @@
                     <form action="/login" method="post">
                         <?= csrf_field() ?>
                         <div class="mb-3">
-                            <label class="form-label">Name</label>
-                            <input type="text" name="name" class="form-control" value="<?= old('name') ?>" required>
+                            <label class="form-label">Email</label>
+                            <input type="text" name="email" class="form-control" value="<?= old('email') ?>" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Password</label>

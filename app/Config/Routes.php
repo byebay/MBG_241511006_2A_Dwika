@@ -31,4 +31,5 @@ $routes->group('products', function($routes) {
     $routes->get('edit/(:num)', 'Products::edit/$1');
     $routes->post('update/(:num)', 'Products::update/$1');
     $routes->get('delete/(:num)', 'Products::delete/$1');
+    $routes->get('confirm-delete/(:num)', 'Products::confirmDelete/$1');
 });
