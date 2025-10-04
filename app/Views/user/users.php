@@ -1,13 +1,16 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 
-    <h2>Daftar Users</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Daftar User</h2>
+        <a href="/user/create_user" class="btn btn-primary">+ Tambah User</a>
+    </div>
 
     <?php if(session()->getFlashdata('success')): ?>
         <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
     <?php endif; ?>
 
-    <a href="/user/create_user" class="btn btn-primary mb-3">Tambah User</a>
+    <!-- <a href="/user/create_user" class="btn btn-primary mb-3">Tambah User</a> -->
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>

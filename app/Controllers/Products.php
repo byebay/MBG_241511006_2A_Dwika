@@ -13,16 +13,35 @@ class Products extends BaseController {
             header('Location: ' . base_url('login'));
             exit;
         }
-
-        if (session()->get('role') !== 'gudang') {
-            header('Location: ' . base_url('products'));
-            exit;
-        }
     }
 
-
     public function index() {
-        $data['products'] = $this->productModel->findAll();
+
+        $products = $this->productModel->findAll();
+        $today = new \DateTime();
+
+        foreach ($products as &$p) {
+            $expiry = new \DateTime($p['tanggal_kadaluarsa']);
+            $diffDays = (int)$today->diff($expiry)->format('%r%a');
+            $newStatus = $p['status'];
+
+            if ($p['jumlah'] == 0) {
+                $newStatus = 'habis';
+            } elseif ($diffDays <= 3 && $diffDays > 0 && $p['jumlah'] > 0) {
+                $newStatus = 'segara_kadaluarsa';
+            } elseif ($diffDays <= 0) {
+                $newStatus = 'kadaluarsa';
+            } else {
+                $newStatus = 'tersedia';
+            }
+
+            if ($newStatus !== $p['status']) {
+                $this->productModel->update($p['id'], ['status' => $newStatus]);
+                $p['status'] = $newStatus;
+            }
+        }
+
+        $data['products'] = $products;
         return view('products/index', $data);
     }
 
@@ -38,7 +57,6 @@ class Products extends BaseController {
             'satuan' => $this->request->getPost('satuan'),
             'tanggal_masuk' => $this->request->getPost('tanggal_masuk'),
             'tanggal_kadaluarsa' => $this->request->getPost('tanggal_kadaluarsa'),
-            'status' => 'Tersedia'
         ]);
         return redirect()->to('/products');
     }
@@ -70,14 +88,14 @@ class Products extends BaseController {
             return redirect()->to('/products')->with('error', 'Produk tidak ditemukan');
         }
 
-        if ($product['status'] !== 'Kadaluarsa') {
+        if ($product['status'] !== 'kadaluarsa') {
             return redirect()->to('/products')->with('error', 'Produk dengan status "' . $product['status'] . '" tidak dapat dihapus');
         }
 
         $this->productModel->delete($id);
         return redirect()->to('/products')->with('success', 'Produk berhasil dihapus');
     }
-    
+
     public function confirmDelete($id) {
         $product = $this->productModel->find($id);
 

@@ -30,6 +30,6 @@ $routes->group('products', function($routes) {
     $routes->post('store', 'Products::store');
     $routes->get('edit/(:num)', 'Products::edit/$1');
     $routes->post('update/(:num)', 'Products::update/$1');
-    $routes->get('delete/(:num)', 'Products::delete/$1');
+    $routes->post('delete/(:num)', 'Products::delete/$1');
     $routes->get('confirm-delete/(:num)', 'Products::confirmDelete/$1');
 });

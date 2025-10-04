@@ -3,7 +3,10 @@
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Daftar Bahan Baku</h2>
-    <a href="/products/create" class="btn btn-primary">+ Tambah Bahan Baku</a>
+    
+    <?php if (session()->get('role') != 'dapur'): ?>
+        <a href="/products/create" class="btn btn-primary">+ Tambah Bahan Baku</a>
+    <?php endif; ?>
 </div>
 
 <?php if(session()->getFlashdata('success')): ?>
@@ -20,7 +23,10 @@
             <th>Tanggal Masuk</th>
             <th>Tanggal Kadaluarsa</th>
             <th>Status</th>
-            <th width="180">Aksi</th>
+
+            <?php if (session()->get('role') != 'dapur'): ?>
+                <th width="180">Aksi</th>
+            <?php endif; ?>
         </tr>
     </thead>
     <tbody>
@@ -33,10 +39,13 @@
             <td><?= $p['tanggal_masuk'] ?></td>
             <td><?= $p['tanggal_kadaluarsa'] ?></td>
             <td><?= $p['status'] ?></td>
+
+            <?php if (session()->get('role') != 'dapur'): ?>
             <td>
                 <a href="/products/edit/<?= $p['id'] ?>" class="btn btn-sm btn-warning">Update Stok</a>
                 <a href="/products/confirm-delete/<?= $p['id'] ?>" class="btn btn-sm btn-danger">Hapus</a>
             </td>
+            <?php endif; ?>
         </tr>
         <?php endforeach ?>
     </tbody>

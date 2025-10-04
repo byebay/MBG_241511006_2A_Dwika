@@ -36,10 +36,11 @@ class Users extends Controller
         $userModel = new UserModel();
 
         $data = [
-            'username' => $this->request->getPost('username'),
+            'name' => $this->request->getPost('name'),
             'email' => $this->request->getPost('email'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-            'role'     => $this->request->getPost('role')
+            'role'     => $this->request->getPost('role'),
+            'created_at' => date('Y-m-d H:i:s')
         ];
         // dd($data);
         $userModel->save($data);

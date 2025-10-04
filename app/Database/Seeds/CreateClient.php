@@ -11,7 +11,7 @@ class CreateClient extends Seeder
         $model = new \App\Models\UserModel();
         $model->save([
             'name'   => "Client",
-            'email'  => "cllent@mbg.id",
+            'email'  => "client@mbg.id",
             'password'   => password_hash("Client123", PASSWORD_DEFAULT),
             'role'       => "dapur"
         ]);
