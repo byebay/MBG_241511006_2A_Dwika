@@ -57,9 +57,9 @@
                 <button type="submit" class="btn btn-success"onclick="return confirm('Yakin ingin menyetujui permintaan ini?')">Setujui</button>
             </form>
 
-            <form action="/gudang/permintaan/tolak/<?= $permintaan['id'] ?>" method="post" class="d-inline">
-                <button type="submit" class="btn btn-danger" data-bs-toggle="collapse" data-bs-target="#formTolak">Tolak</button>
-            </form>
+            <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#formTolak">
+                Tolak
+            </button>
 
             <div id="formTolak" class="collapse mt-3">
                 <form action="/gudang/permintaan/tolak/<?= $permintaan['id'] ?>" method="post">

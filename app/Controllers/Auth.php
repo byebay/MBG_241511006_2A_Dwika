@@ -23,12 +23,13 @@ class Auth extends Controller
                 if (password_verify($password, $user['password'])) {
                     session()->set([
                         'isLoggedIn' => true,
+                        'name'      => $user['name'],
                         'user_id'    => $user['id'],
                         'email'       => $user['email'],
                         'role'       => $user['role']
                     ]);
 
-                    return redirect()->to('/products');
+                    return redirect()->to('/dashboard');
                 } else {
                     return redirect()->back()->with('error', 'Password salah!');
                 }
@@ -52,6 +53,7 @@ class Auth extends Controller
         if ($user && password_verify($password, $user['password'])) {
             $session->set([
                 'user_id'   => $user['id'],
+                'name'      => $user['name'],
                 'email'      => $user['email'],
                 'role'      => $user['role'],
                 'isLoggedIn' => true

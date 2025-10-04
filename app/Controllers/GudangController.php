@@ -106,6 +106,6 @@ class GudangController extends BaseController
 
         $permintaanModel->update($id, ['status' => 'ditolak']);
 
-        return redirect()->to('/permintaan')->with('success', 'Permintaan telah ditolak.');
+        return redirect()->to('/gudang/permintaan')->with('success', 'Permintaan telah ditolak.');
     }
 }
