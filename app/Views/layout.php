@@ -14,8 +14,12 @@
         <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
         <?php if (session()->get('role') === 'gudang'): ?>
           <li class="nav-item"><a class="nav-link" href="/user/users">User</a></li>
+          <li class="nav-item"><a class="nav-link" href="/products">Bahan Baku</a></li>
         <?php endif; ?>
-            <li class="nav-item"><a class="nav-link" href="/products">Bahan Baku</a></li>
+
+        <?php if (session()->get('role') === 'dapur' || session()->get('role') === 'admin'): ?>
+          <li class="nav-item"><a class="nav-link" href="/permintaan">Permintaan</a></li>
+        <?php endif; ?>
         <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
       </ul>
     </div>

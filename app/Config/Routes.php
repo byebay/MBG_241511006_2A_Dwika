@@ -33,3 +33,10 @@ $routes->group('products', function($routes) {
     $routes->post('delete/(:num)', 'Products::delete/$1');
     $routes->get('confirm-delete/(:num)', 'Products::confirmDelete/$1');
 });
+
+$routes->group('permintaan', function($routes) {
+    $routes->get('/', 'Permintaan::index');
+    $routes->get('create', 'Permintaan::create');
+    $routes->post('store', 'Permintaan::store');
+    $routes->get('detail/(:num)', 'Permintaan::detail/$1');
+});
